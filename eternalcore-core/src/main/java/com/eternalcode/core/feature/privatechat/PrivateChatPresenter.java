@@ -25,12 +25,10 @@ class PrivateChatPresenter {
         UUID sender = event.sender().getUniqueId();
         UUID target = event.target().getUniqueId();
 
-        if (!event.ignored()) {
-            this.notice.player(target, translation -> translation.privateChat().privateMessageTargetToYou(), formatter);
-        }
+
+        this.notice.player(target, translation -> translation.privateChat().privateMessageTargetToYou(), formatter);
 
         this.notice.player(sender, translation -> translation.privateChat().privateMessageYouToTarget(), formatter);
-        this.notice.players(event.spies(), translation -> translation.privateChat().socialSpyMessage(), formatter);
     }
 
 }

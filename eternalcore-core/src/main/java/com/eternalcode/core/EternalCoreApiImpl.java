@@ -3,14 +3,12 @@ package com.eternalcode.core;
 import com.eternalcode.core.feature.afk.AfkService;
 import com.eternalcode.core.feature.catboy.CatboyService;
 import com.eternalcode.core.feature.home.HomeService;
-import com.eternalcode.core.feature.ignore.IgnoreService;
 import com.eternalcode.core.feature.jail.JailService;
 import com.eternalcode.core.feature.language.LanguageService;
 import com.eternalcode.core.feature.privatechat.PrivateChatService;
 import com.eternalcode.core.feature.randomteleport.RandomTeleportService;
 import com.eternalcode.core.feature.spawn.SpawnService;
 import com.eternalcode.core.feature.teleport.TeleportService;
-import com.eternalcode.core.feature.warp.WarpService;
 import com.eternalcode.core.injector.DependencyProvider;
 
 class EternalCoreApiImpl implements EternalCoreApi {
@@ -29,11 +27,6 @@ class EternalCoreApiImpl implements EternalCoreApi {
     @Override
     public CatboyService getCatboyService() {
         return this.dependencyProvider.getDependency(CatboyService.class);
-    }
-
-    @Override
-    public IgnoreService getIgnoreService() {
-        return this.dependencyProvider.getDependency(IgnoreService.class);
     }
 
     @Override
@@ -69,10 +62,5 @@ class EternalCoreApiImpl implements EternalCoreApi {
     @Override
     public TeleportService getTeleportService() {
         return this.dependencyProvider.getDependency(TeleportService.class);
-    }
-
-    @Override
-    public WarpService getWarpService() {
-        return this.dependencyProvider.getDependency(WarpService.class);
     }
 }

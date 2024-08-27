@@ -16,7 +16,8 @@ import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
-@Command(name = "jail")
+@Command(name = "jail", aliases = { "jails" })
+@Permission("eternalcore.jail")
 @FeatureDocs(
     name = "Jail Bypass",
     permission = { "eternalcore.jail.bypass" },
@@ -179,26 +180,6 @@ class JailCommand {
             .send();
     }
 
-    @Execute(name = "release -all", aliases = { "release *" })
-    @Permission("eternalcore.jail.release")
-    @DescriptionDocs(description = "Release all players from jail")
-    void executeJailReleaseAll(@Context Player player) {
-        if (this.jailService.getJailedPlayers().isEmpty()) {
-            this.noticeService.create()
-                .notice(translation -> translation.jailSection().jailReleaseNoPlayers())
-                .player(player.getUniqueId())
-                .send();
-            return;
-        }
-
-        this.jailService.releaseAllPlayers();
-
-        this.noticeService.create()
-            .notice(translation -> translation.jailSection().jailReleaseAll())
-            .all()
-            .send();
-    }
-
     @Execute(name = "list")
     @Permission("eternalcore.jail.list")
     @DescriptionDocs(description = "List all jailed players")
@@ -240,3 +221,4 @@ class JailCommand {
     }
 
 }
+

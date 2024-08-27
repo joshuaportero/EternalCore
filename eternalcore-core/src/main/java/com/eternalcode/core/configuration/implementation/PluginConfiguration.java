@@ -84,7 +84,9 @@ public class PluginConfiguration implements ReloadableConfig {
 
     @Contextual
     public static class TeleportAsk implements TeleportRequestSettings {
-        @Description({ "# Time of tpa requests expire" })
+        @Description("# Time of tpa requests expire")
+
+        @Description({ " ", "# Time of tpa requests expire" })
         public Duration tpaRequestExpire = Duration.ofSeconds(80);
 
         @Description({ " ", "# Time of teleportation time in /tpa commands" })
@@ -178,27 +180,6 @@ public class PluginConfiguration implements ReloadableConfig {
         }
     }
 
-    @Description({ " ", "# Homes Section" })
-    public Homes homes = new Homes();
-
-    @Contextual
-    public static class Homes {
-        @Description("# Default home name")
-        public String defaultHomeName = "home";
-
-        @Description("# Time of teleportation to homes")
-        public Duration teleportTimeToHomes = Duration.ofSeconds(5);
-
-        @Description("# Max homes per permission")
-        public Map<String, Integer> maxHomes = new LinkedHashMap<>() {
-            {
-                put("eternalcore.home.default", 1);
-                put("eternalcore.home.vip", 2);
-                put("eternalcore.home.premium", 3);
-            }
-        };
-    }
-
     @Description({ " ", "# Awesome sounds" })
     public Sounds sound = new Sounds();
 
@@ -230,7 +211,7 @@ public class PluginConfiguration implements ReloadableConfig {
     @Contextual
     public static class Chat implements ChatSettings {
 
-        @Description({ "# Custom message for unknown command" })
+        @Description({ " ", "# Custom message for unknown command" })
         public boolean replaceStandardHelpMessage = false;
 
         @Description({ " ", "# Chat delay to send next message in chat" })
@@ -285,21 +266,6 @@ public class PluginConfiguration implements ReloadableConfig {
         @Override
         public Duration getHelpOpDelay() {
             return this.helpOpDelay;
-        }
-    }
-
-    @Description({ " ", "# Repair Section" })
-    public Repair repair = new Repair();
-
-    @Contextual
-    public static class Repair implements DelaySettings {
-
-        @Description({ "# Repair command cooldown" })
-        public Duration repairDelay = Duration.ofSeconds(5);
-
-        @Override
-        public Duration delay() {
-            return this.repairDelay;
         }
     }
 
@@ -359,54 +325,6 @@ public class PluginConfiguration implements ReloadableConfig {
         }
     }
 
-    @Description({ " ", "# Items" })
-    public Items items = new Items();
-
-    @Contextual
-    public static class Items {
-        @Description("# Use unsafe enchantments? Allows you to apply custom enchants to various items")
-        public boolean unsafeEnchantments = true;
-
-        @Description({ " ", "# The default item give amount, when no amount is specified in the command." })
-        public int defaultGiveAmount = 1;
-    }
-
-    @Description({ " ", "# Warp Section" })
-    public Warp warp = new Warp();
-
-    @Contextual
-    public static class Warp {
-        @Description("# Time of teleportation to warp")
-        public Duration teleportTimeToWarp = Duration.ofSeconds(5);
-
-        @Description("# Warp inventory should be enabled?")
-        public boolean inventoryEnabled = true;
-
-        @Description("# Warp inventory auto add new warps")
-        public boolean autoAddNewWarps = true;
-
-        @Description({"# Options below allow you to customize item representing warp added to GUI, ",
-            "# you can change almost everything inside langueage files, after the warp has been added to the inventory."})
-        public  String itemNamePrefix = "&8» &6Warp: &f";
-
-        public String itemLore = "&7Click to teleport!";
-
-        public Material itemMaterial = Material.PLAYER_HEAD;
-
-        @Description("# Texture of the item (only for PLAYER_HEAD material)")
-        public String itemTexture = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzk4ODVlODIzZmYxNTkyNjdjYmU4MDkwOTNlMzNhNDc2ZTI3NDliNjU5OGNhNGEyYTgxZWU2OTczODAzZmI2NiJ9fX0=";
-
-    }
-
-    @Description({ " ", "# Butcher" })
-    public Butcher butcher = new Butcher();
-
-    @Contextual
-    public static class Butcher {
-        @Description("# Safe number of chunks for command execution (above this number it will not be possible to execute the command)")
-        public int safeChunkNumber = 5;
-    }
-
     @Description({ " ", "# AutoMessage Section" })
     public AutoMessage autoMessage = new AutoMessage();
 
@@ -416,13 +334,13 @@ public class PluginConfiguration implements ReloadableConfig {
         public boolean enabled = true;
 
         @Description("# Interval between messages")
-        public Duration interval = Duration.ofSeconds(60);
+        public Duration interval = Duration.ofSeconds(15);
 
         @Description("# Draw mode (RANDOM, SEQUENTIAL)")
         public DrawMode drawMode = DrawMode.RANDOM;
 
         @Description("# Minimum number of players on the server to send an auto message.")
-        public int minPlayers = 3;
+        public int minPlayers = 2;
 
         @Override
         public boolean enabled() {

@@ -13,7 +13,7 @@ public final class TranslationFactory {
 
     private static final Map<Language, Supplier<AbstractTranslation>> DEFAULT_TRANSLATIONS = Map.of(
         Language.EN, ENTranslation::new,
-        Language.PL, PLTranslation::new
+        Language.ES, ESTranslation::new
     );
 
     private TranslationFactory() {

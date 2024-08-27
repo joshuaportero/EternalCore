@@ -12,7 +12,7 @@ eternalShadowCompiler {
         main = "com.eternalcode.core.loader.EternalCoreLoader"
         apiVersion = "1.13"
         prefix = "EternalCore"
-        author = "EternalCodeTeam"
+        authors = listOf("EternalCodeTeam", "Portero")
         name = "EternalCore"
         description = "All the most important server functions in one!"
         website = "www.eternalcode.pl"
@@ -21,7 +21,7 @@ eternalShadowCompiler {
     }
 
     shadowJar {
-        archiveFileName.set("EternalCore v${project.version} (MC 1.17.x-1.21.x).jar")
+        archiveFileName.set("EternalCore-${project.version}.jar")
 
         exclude(
             "META-INF/**",

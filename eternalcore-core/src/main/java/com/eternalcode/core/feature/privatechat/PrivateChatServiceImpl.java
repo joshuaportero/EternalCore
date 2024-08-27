@@ -1,7 +1,6 @@
 package com.eternalcode.core.feature.privatechat;
 
 import com.eternalcode.core.event.EventCaller;
-import com.eternalcode.core.feature.ignore.IgnoreService;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Service;
 import com.eternalcode.core.notice.NoticeService;
@@ -9,18 +8,18 @@ import com.eternalcode.core.user.User;
 import com.eternalcode.core.user.UserManager;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import org.bukkit.entity.Player;
+
 import java.time.Duration;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import org.bukkit.entity.Player;
 
 @Service
 class PrivateChatServiceImpl implements PrivateChatService {
 
     private final NoticeService noticeService;
-    private final IgnoreService ignoreService;
     private final UserManager userManager;
     private final PrivateChatPresenter presenter;
     private final EventCaller eventCaller;
@@ -34,12 +33,10 @@ class PrivateChatServiceImpl implements PrivateChatService {
     @Inject
     PrivateChatServiceImpl(
         NoticeService noticeService,
-        IgnoreService ignoreService,
         UserManager userManager,
         EventCaller eventCaller
     ) {
         this.noticeService = noticeService;
-        this.ignoreService = ignoreService;
         this.userManager = userManager;
         this.eventCaller = eventCaller;
 
@@ -53,16 +50,12 @@ class PrivateChatServiceImpl implements PrivateChatService {
             return;
         }
 
-        this.ignoreService.isIgnored(target.getUniqueId(), sender.getUniqueId()).thenAccept(isIgnored -> {
-            if (!isIgnored) {
-                this.replies.put(target.getUniqueId(), sender.getUniqueId());
-                this.replies.put(sender.getUniqueId(), target.getUniqueId());
-            }
+        this.replies.put(target.getUniqueId(), sender.getUniqueId());
+        this.replies.put(sender.getUniqueId(), target.getUniqueId());
 
-            PrivateChatEvent event = new PrivateChatEvent(sender.getUniqueId(), target.getUniqueId(), message);
-            this.eventCaller.callEvent(event);
-            this.presenter.onPrivate(new PrivateMessage(sender, target, event.getContent(), this.socialSpy, isIgnored));
-        });
+        PrivateChatEvent event = new PrivateChatEvent(sender.getUniqueId(), target.getUniqueId(), message);
+        this.eventCaller.callEvent(event);
+        this.presenter.onPrivate(new PrivateMessage(sender, target, event.getContent()));
     }
 
     void reply(User sender, String message) {
