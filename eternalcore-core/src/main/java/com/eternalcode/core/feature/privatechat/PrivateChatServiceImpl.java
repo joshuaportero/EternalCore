@@ -11,10 +11,9 @@ import com.google.common.cache.CacheBuilder;
 import org.bukkit.entity.Player;
 
 import java.time.Duration;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 class PrivateChatServiceImpl implements PrivateChatService {
@@ -28,14 +27,8 @@ class PrivateChatServiceImpl implements PrivateChatService {
         .expireAfterWrite(Duration.ofHours(1))
         .build();
 
-    private final Set<UUID> socialSpy = new HashSet<>();
-
     @Inject
-    PrivateChatServiceImpl(
-        NoticeService noticeService,
-        UserManager userManager,
-        EventCaller eventCaller
-    ) {
+    PrivateChatServiceImpl(NoticeService noticeService, UserManager userManager, EventCaller eventCaller) {
         this.noticeService = noticeService;
         this.userManager = userManager;
         this.eventCaller = eventCaller;
@@ -53,9 +46,12 @@ class PrivateChatServiceImpl implements PrivateChatService {
         this.replies.put(target.getUniqueId(), sender.getUniqueId());
         this.replies.put(sender.getUniqueId(), target.getUniqueId());
 
-        PrivateChatEvent event = new PrivateChatEvent(sender.getUniqueId(), target.getUniqueId(), message);
-        this.eventCaller.callEvent(event);
-        this.presenter.onPrivate(new PrivateMessage(sender, target, event.getContent()));
+
+        CompletableFuture.runAsync(() -> {
+            PrivateChatEvent event = new PrivateChatEvent(sender.getUniqueId(), target.getUniqueId(), message);
+            this.eventCaller.callEvent(event);
+            this.presenter.onPrivate(new PrivateMessage(sender, target, event.getContent()));
+        });
     }
 
     void reply(User sender, String message) {
@@ -78,21 +74,6 @@ class PrivateChatServiceImpl implements PrivateChatService {
         User target = targetOption.get();
 
         this.privateMessage(sender, target, message);
-    }
-
-    @Override
-    public void enableSpy(UUID player) {
-        this.socialSpy.add(player);
-    }
-
-    @Override
-    public void disableSpy(UUID player) {
-        this.socialSpy.remove(player);
-    }
-
-    @Override
-    public boolean isSpy(UUID player) {
-        return this.socialSpy.contains(player);
     }
 
     @Override

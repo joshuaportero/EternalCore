@@ -1,7 +1,7 @@
 package com.eternalcode.core.feature.spawn;
 
-import com.eternalcode.core.configuration.implementation.LocationsConfiguration;
-import com.eternalcode.core.configuration.implementation.PluginConfiguration;
+import com.eternalcode.core.config.LocationsConfiguration;
+import com.eternalcode.core.config.PluginConfiguration;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Controller;
 import com.eternalcode.commons.bukkit.position.Position;
@@ -46,7 +46,7 @@ class SpawnRespawnController implements Listener {
     }
 
     boolean hasRespawnPoint(Player player) {
-        return player.getBedSpawnLocation() != null;
+        return player.getRespawnLocation() != null;
     }
 
 }

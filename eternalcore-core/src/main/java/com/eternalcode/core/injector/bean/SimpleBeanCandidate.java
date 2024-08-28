@@ -35,5 +35,4 @@ class SimpleBeanCandidate implements BeanCandidate {
             ", type=" + this.type +
             '}';
     }
-
 }

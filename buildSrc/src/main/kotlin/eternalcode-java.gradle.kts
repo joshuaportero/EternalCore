@@ -4,10 +4,10 @@ plugins {
 }
 
 group = "com.eternalcode"
-version = "1.3.4"
+version = "1.3.5-SNAPSHOT"
 
 checkstyle {
-    toolVersion = "10.18.1"
+    toolVersion = "10.18.0"
 
     configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
     configProperties["checkstyle.suppressions.file"] = "${rootDir}/config/checkstyle/suppressions.xml"
@@ -35,5 +35,5 @@ java {
 tasks.withType<JavaCompile>() {
     options.compilerArgs = listOf("-Xlint:deprecation", "-parameters")
     options.encoding = "UTF-8"
-    options.release = 17
+    options.release = 21
 }

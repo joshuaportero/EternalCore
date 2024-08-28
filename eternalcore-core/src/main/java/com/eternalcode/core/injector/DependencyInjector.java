@@ -45,11 +45,9 @@ public class DependencyInjector {
 
             method.setAccessible(true);
             return method.invoke(instance, parameters);
-        }
-        catch (BeanException beanException) {
+        } catch (BeanException beanException) {
             throw new DependencyInjectorException("Failed to invoke method " + method.getName() + " in " + declaringClass.getName() + "!", beanException, declaringClass);
-        }
-        catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
             throw new DependencyInjectorException(exception, declaringClass);
         }
     }
@@ -83,13 +81,10 @@ public class DependencyInjector {
 
             constructor.setAccessible(true);
             return constructor.newInstance(parameters);
-        }
-        catch (BeanException beanException) {
+        } catch (BeanException beanException) {
             throw new DependencyInjectorException("Failed to create a new instance of " + declaringClass.getName() + "!", beanException, declaringClass);
-        }
-        catch (InvocationTargetException | InstantiationException | IllegalAccessException exception) {
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException exception) {
             throw new DependencyInjectorException(exception, declaringClass);
         }
     }
-
 }

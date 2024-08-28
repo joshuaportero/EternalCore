@@ -2,30 +2,23 @@ package com.eternalcode.core.feature.jail;
 
 import com.eternalcode.commons.bukkit.position.Position;
 import com.eternalcode.commons.bukkit.position.PositionAdapter;
+import com.eternalcode.core.config.LocationsConfiguration;
 import com.eternalcode.core.configuration.ConfigurationManager;
-import com.eternalcode.core.configuration.implementation.LocationsConfiguration;
 import com.eternalcode.core.event.EventCaller;
-import com.eternalcode.core.feature.jail.event.JailDetainEvent;
-import com.eternalcode.core.feature.jail.event.JailReleaseEvent;
 import com.eternalcode.core.feature.spawn.SpawnService;
 import com.eternalcode.core.feature.teleport.TeleportService;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Service;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import javax.annotation.Nullable;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Blocking;
 
-import java.util.Optional;
+import javax.annotation.Nullable;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
 
 @Service
 class JailServiceImpl implements JailService {
@@ -66,7 +59,7 @@ class JailServiceImpl implements JailService {
     }
 
     @Override
-    public boolean detainPlayer(Player player, CommandSender detainedBy, @Nullable Duration time) {
+    public void detainPlayer(Player player, CommandSender detainedBy, @Nullable Duration time) {
         if (time == null) {
             time = this.settings.defaultJailDuration();
         }
@@ -74,14 +67,14 @@ class JailServiceImpl implements JailService {
         Optional<Location> jailAreaLocation = this.getJailAreaLocation();
 
         if (jailAreaLocation.isEmpty()) {
-            return false;
+            return;
         }
 
         JailDetainEvent jailDetainEvent = new JailDetainEvent(player, detainedBy);
         this.eventCaller.callEvent(jailDetainEvent);
 
         if (jailDetainEvent.isCancelled()) {
-            return false;
+            return;
         }
 
         JailedPlayer jailedPlayer = new JailedPlayer(player.getUniqueId(), Instant.now(), time, detainedBy.getName());
@@ -90,16 +83,15 @@ class JailServiceImpl implements JailService {
         this.jailedPlayers.put(player.getUniqueId(), jailedPlayer);
 
         this.teleportService.teleport(player, jailAreaLocation.get());
-        return true;
     }
 
     @Override
-    public boolean releasePlayer(Player player) {
+    public void releasePlayer(Player player) {
         JailReleaseEvent jailReleaseEvent = new JailReleaseEvent(player.getUniqueId());
         this.eventCaller.callEvent(jailReleaseEvent);
 
         if (jailReleaseEvent.isCancelled()) {
-            return false;
+            return;
         }
 
         this.prisonerRepository.deletePrisoner(player.getUniqueId());
@@ -107,7 +99,6 @@ class JailServiceImpl implements JailService {
 
         this.spawnService.teleportToSpawn(player);
 
-        return true;
     }
 
     @Override
@@ -133,12 +124,7 @@ class JailServiceImpl implements JailService {
     @Override
     public boolean isPlayerJailed(UUID player) {
         JailedPlayer jailedPlayer = this.jailedPlayers.get(player);
-
-        if (jailedPlayer == null || jailedPlayer.isPrisonExpired()) {
-            return false;
-        }
-
-        return true;
+        return jailedPlayer != null && !jailedPlayer.isPrisonExpired();
     }
 
     @Override

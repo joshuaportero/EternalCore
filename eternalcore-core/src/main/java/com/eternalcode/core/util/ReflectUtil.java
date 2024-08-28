@@ -36,15 +36,13 @@ public final class ReflectUtil {
                 try {
                     Class<?> clazz = Class.forName(info.getName(), false, classLoader);
                     loadedClasses.add(clazz);
-                }
-                catch (NoClassDefFoundError ignored) {
+                } catch (NoClassDefFoundError ignored) {
                     LOGGER.severe("Unable to load class: " + info.getName());
                 }
             }
 
             return loadedClasses;
-        }
-        catch (IOException | ClassNotFoundException exception) {
+        } catch (IOException | ClassNotFoundException exception) {
             throw new RuntimeException(exception);
         }
     }
@@ -69,5 +67,4 @@ public final class ReflectUtil {
     public static <T> T unsafeCast(Object object) {
         return (T) object;
     }
-
 }

@@ -1,20 +1,16 @@
 package com.eternalcode.core.feature.sound;
 
-import com.eternalcode.annotations.scan.feature.FeatureDocs;
-import com.eternalcode.core.configuration.implementation.PluginConfiguration;
+import com.eternalcode.core.config.PluginConfiguration;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Controller;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-@FeatureDocs(
-    description = "Play a sound after a player quits the server",
-    name = "Player Quit Sound"
-)
 @Controller
-class PlayerQuitSoundListener {
+class PlayerQuitSoundListener implements Listener {
 
     private final PluginConfiguration config;
     private final Server server;

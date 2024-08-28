@@ -25,14 +25,14 @@ class EternalCoreEnvironment {
     private void checkSoftware() {
         Environment environment = PaperLib.getEnvironment();
 
-        if (!environment.isSpigot()) {
-            this.logger.warning("Your server is running on unsupported software, please use Spigot/Paper or their other 1.20+ forks");
+        if (!environment.isPaper()) {
+            this.logger.warning("Your server is running on unsupported software, please use Paper or their other 1.21+ forks");
             this.logger.warning("We recommend using Paper, download it from https://papermc.io/downloads");
-            this.logger.warning("WARNING: Supported Minecraft versions are 1.17-1.20x");
+            this.logger.warning("WARNING: The only supported Minecraft version is 1.21.x");
             return;
         }
 
-        if (!environment.isVersion(17)) {
+        if (!environment.isVersion(21)) {
             this.logger.warning("EternalCore no longer supports your version, be aware that there may be bugs!");
             return;
         }

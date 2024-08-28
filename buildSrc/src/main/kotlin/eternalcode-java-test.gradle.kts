@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     testImplementation("dev.rollczi:litecommands-core:${Versions.LITE_COMMANDS}")
-    testImplementation("org.spigotmc:spigot-api:${Versions.SPIGOT_API}")
+    testImplementation("io.papermc.paper:paper-api:${Versions.PAPER_API}")
     testImplementation("net.dzikoysk:cdn:${Versions.CDN_CONFIGS}")
     testImplementation("org.panda-lang:expressible-junit:${Versions.EXPRESSIBLE_JUNIT}")
     testImplementation("org.codehaus.groovy:groovy-all:${Versions.GROOVY_ALL}")

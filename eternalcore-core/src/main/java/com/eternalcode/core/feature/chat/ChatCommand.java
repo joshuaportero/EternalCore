@@ -1,6 +1,5 @@
 package com.eternalcode.core.feature.chat;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
 import com.eternalcode.core.event.EventCaller;
 import com.eternalcode.core.feature.chat.event.ClearChatEvent;
 import com.eternalcode.core.feature.chat.event.DisableChatEvent;
@@ -44,7 +43,6 @@ class ChatCommand {
     }
 
     @Execute(name = "clear", aliases = "cc")
-    @DescriptionDocs(description = "Clears chat")
     void clear(@Context CommandSender sender) {
         ClearChatEvent event = this.eventCaller.callEvent(new ClearChatEvent(sender));
 
@@ -61,14 +59,13 @@ class ChatCommand {
     }
 
     @Execute(name = "on")
-    @DescriptionDocs(description = "Enables chat")
     void enable(@Context Viewer viewer, @Context CommandSender sender) {
         if (this.chatSettings.isChatEnabled()) {
             this.noticeService.viewer(viewer, translation -> translation.chat().alreadyEnabled());
             return;
         }
 
-        EnableChatEvent event = this.eventCaller.callEvent(new EnableChatEvent(sender));
+        EnableChatEvent event = this.eventCaller.callEvent(new EnableChatEvent());
 
         if (event.isCancelled()) {
             return;
@@ -84,7 +81,6 @@ class ChatCommand {
     }
 
     @Execute(name = "off")
-    @DescriptionDocs(description = "Disables chat")
     void disable(@Context Viewer viewer, @Context CommandSender sender) {
         if (!this.chatSettings.isChatEnabled()) {
             this.noticeService.viewer(viewer, translation -> translation.chat().alreadyDisabled());
@@ -107,7 +103,6 @@ class ChatCommand {
     }
 
     @Execute(name = "slowmode")
-    @DescriptionDocs(description = "Sets slowmode for chat", arguments = "<time>")
     void slowmode(@Context Viewer viewer, @Arg Duration duration) {
         if (duration.isNegative()) {
             this.noticeService.viewer(viewer, translation -> translation.argument().numberBiggerThanOrEqualZero());
@@ -143,7 +138,6 @@ class ChatCommand {
     }
 
     @Execute(name = "slowmode 0")
-    @DescriptionDocs(description = "Disable SlowMode for chat")
     void slowmodeOff(@Context Viewer viewer) {
         Duration noSlowMode = Duration.ZERO;
         this.slowmode(viewer, noSlowMode);

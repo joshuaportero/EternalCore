@@ -1,12 +1,11 @@
 package com.eternalcode.core.feature.join;
 
-import com.eternalcode.annotations.scan.feature.FeatureDocs;
-import com.eternalcode.core.configuration.implementation.LocationsConfiguration;
-import com.eternalcode.core.configuration.implementation.PluginConfiguration;
-import com.eternalcode.core.injector.annotations.Inject;
-import com.eternalcode.core.injector.annotations.component.Controller;
 import com.eternalcode.commons.bukkit.position.Position;
 import com.eternalcode.commons.bukkit.position.PositionAdapter;
+import com.eternalcode.core.config.LocationsConfiguration;
+import com.eternalcode.core.config.PluginConfiguration;
+import com.eternalcode.core.injector.annotations.Inject;
+import com.eternalcode.core.injector.annotations.component.Controller;
 import io.papermc.lib.PaperLib;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -16,10 +15,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@FeatureDocs(
-    description = "Teleport to spawn on first join or spawn on join",
-    name = "Player Join"
-)
 @Controller
 public class PlayerJoinController implements Listener {
 

@@ -1,7 +1,6 @@
 package com.eternalcode.core.feature.randomteleport;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
-import com.eternalcode.core.configuration.implementation.PluginConfiguration;
+import com.eternalcode.core.config.PluginConfiguration;
 import com.eternalcode.core.delay.Delay;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.notice.NoticeService;
@@ -49,7 +48,6 @@ class RandomTeleportCommand {
 
     @Execute
     @Permission("eternalcore.rtp")
-    @DescriptionDocs(description = "Teleportation of the sender to a random location, if you want bypass cooldown use eternalcore.rtp.bypass permission")
     void executeSelf(@Context Player player) {
         UUID uuid = player.getUniqueId();
 
@@ -77,7 +75,6 @@ class RandomTeleportCommand {
 
     @Execute
     @Permission("eternalcore.rtp.other")
-    @DescriptionDocs(description = "Teleportation of a player to a random location.", arguments = "<player>")
     void executeOther(@Context Viewer sender, @Arg Player player) {
         UUID uuid = player.getUniqueId();
 

@@ -1,7 +1,6 @@
 package com.eternalcode.core.feature.afk;
 
 import com.eternalcode.core.event.EventCaller;
-import com.eternalcode.core.feature.afk.event.AfkSwitchEvent;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Service;
 import com.eternalcode.core.notice.NoticeService;
@@ -46,18 +45,17 @@ class AfkServiceImpl implements AfkService {
     }
 
     @Override
-    public Afk markAfk(UUID playerUniqueId, AfkReason reason) {
+    public void markAfk(UUID playerUniqueId, AfkReason reason) {
         Afk afk = new Afk(playerUniqueId, reason, Instant.now());
         AfkSwitchEvent event = this.eventCaller.callEvent(new AfkSwitchEvent(afk, true));
 
         if (event.isCancelled()) {
-            return afk;
+            return;
         }
 
         this.afkByPlayer.put(playerUniqueId, afk);
         this.sendAfkNotification(playerUniqueId, true);
 
-        return afk;
     }
 
 

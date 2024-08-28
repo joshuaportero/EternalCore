@@ -60,13 +60,11 @@ public abstract class AbstractRepositoryOrmLite {
 
             try {
                 completableFuture.complete(action.apply(dao));
-            }
-            catch (Throwable throwable) {
+            } catch (Throwable throwable) {
                 completableFuture.completeExceptionally(throwable);
             }
         });
 
         return completableFuture;
     }
-
 }

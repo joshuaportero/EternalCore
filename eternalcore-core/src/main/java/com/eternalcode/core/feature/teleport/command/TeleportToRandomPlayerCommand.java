@@ -1,21 +1,21 @@
 package com.eternalcode.core.feature.teleport.command;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
 import com.eternalcode.commons.RandomElementUtil;
-import com.eternalcode.core.configuration.implementation.PluginConfiguration;
+import com.eternalcode.core.config.PluginConfiguration;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.notice.NoticeService;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
-@Command(name = "teleportorandomplayer", aliases = { "tprp" })
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Command(name = "teleportorandomplayer", aliases = {"tprp"})
 @Permission("eternalcore.tprp")
 public class TeleportToRandomPlayerCommand {
 
@@ -35,7 +35,6 @@ public class TeleportToRandomPlayerCommand {
     }
 
     @Execute
-    @DescriptionDocs(description = "Teleport to a random player on the server, with the option to filter op players")
     void execute(@Context Player player) {
         List<Player> possibleTargetPlayers = this.server.getOnlinePlayers().stream()
             .filter(target -> this.pluginConfiguration.teleport.includeOpPlayersInRandomTeleport || !target.isOp())

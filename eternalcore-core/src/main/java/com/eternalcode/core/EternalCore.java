@@ -26,21 +26,21 @@ import java.util.logging.Logger;
 
 class EternalCore {
 
-    private final EternalCoreEnvironment eternalCoreEnvironment;
     private final Publisher publisher;
 
+    @SuppressWarnings("deprecation")
     public EternalCore(Plugin plugin) {
-        this.eternalCoreEnvironment = new EternalCoreEnvironment(plugin.getLogger());
+        EternalCoreEnvironment eternalCoreEnvironment = new EternalCoreEnvironment(plugin.getLogger());
 
         BeanProcessor beanProcessor = BeanProcessorFactory.defaultProcessors(plugin);
         BeanFactory beanFactory = new BeanFactory(beanProcessor)
             .withCandidateSelf()
-            .addCandidate(Plugin.class,                () -> plugin)
-            .addCandidate(Server.class,                () -> plugin.getServer())
-            .addCandidate(Logger.class,                () -> plugin.getLogger())
-            .addCandidate(PluginDescriptionFile.class, () -> plugin.getDescription())
-            .addCandidate(File.class,                  () -> plugin.getDataFolder())
-            .addCandidate(PluginManager.class,         () -> plugin.getServer().getPluginManager());
+            .addCandidate(Plugin.class, () -> plugin)
+            .addCandidate(Server.class, plugin::getServer)
+            .addCandidate(Logger.class, plugin::getLogger)
+            .addCandidate(PluginDescriptionFile.class, plugin::getDescription)
+            .addCandidate(File.class, plugin::getDataFolder)
+            .addCandidate(PluginManager.class, () -> plugin.getServer().getPluginManager());
 
         DependencyInjector dependencyInjector = new DependencyInjector(beanFactory);
         DependencyScanner scanner = DependencyScannerFactory.createDefault(dependencyInjector);
@@ -57,14 +57,12 @@ class EternalCore {
 
         this.publisher = beanFactory.getDependency(Publisher.class);
 
-        EternalCoreApiProvider.initialize(new EternalCoreApiImpl(beanFactory));
-        this.eternalCoreEnvironment.initialize();
+        eternalCoreEnvironment.initialize();
         this.publisher.publish(new EternalInitializeEvent());
     }
 
     public void disable() {
         this.publisher.publish(new EternalShutdownEvent());
-        EternalCoreApiProvider.deinitialize();
     }
 
     private void loadConfigContextual(BeanFactory beanFactory) {

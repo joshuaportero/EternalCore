@@ -1,6 +1,5 @@
 package com.eternalcode.core.bridge.litecommand.configurator;
 
-import com.eternalcode.annotations.scan.feature.FeatureDocs;
 import com.eternalcode.core.bridge.litecommand.configurator.config.Command;
 import com.eternalcode.core.bridge.litecommand.configurator.config.CommandConfiguration;
 import com.eternalcode.core.bridge.litecommand.configurator.config.SubCommand;
@@ -20,11 +19,6 @@ class CommandConfigurator implements Editor<CommandSender> {
     CommandConfigurator(CommandConfiguration commandConfiguration) {
         this.commandConfiguration = commandConfiguration;
     }
-
-    @FeatureDocs(
-        name = "CommandConfigurator",
-        description = "Adds support for command configuration, which allows you to change the name, aliases, permissions and disable the command"
-    )
 
     @Override
     public CommandBuilder<CommandSender> edit(CommandBuilder<CommandSender> context) {
@@ -50,5 +44,4 @@ class CommandConfigurator implements Editor<CommandSender> {
             .applyMeta(meta -> meta.list(Meta.PERMISSIONS, permissions -> permissions.addAll(command.permissions())))
             .enabled(command.isEnabled());
     }
-
 }

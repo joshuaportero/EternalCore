@@ -15,6 +15,7 @@ public enum NoticeTextType {
         this.noticeKey = noticeKey;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends NoticeContent> NoticeKey<T> getNoticeKey() {
         return (NoticeKey<T>) this.noticeKey;
     }

@@ -1,6 +1,5 @@
 package com.eternalcode.core.feature.teleportrequest;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.notice.NoticeService;
 import dev.rollczi.litecommands.annotations.argument.Arg;
@@ -24,7 +23,6 @@ class TpaCommand {
     }
 
     @Execute
-    @DescriptionDocs(description = "Send teleport request to player", arguments = "<player>")
     void execute(@Context Player player, @Arg Player target) {
         if (player.equals(target)) {
             this.noticeService.player(player.getUniqueId(), translation -> translation.tpa().tpaSelfMessage());

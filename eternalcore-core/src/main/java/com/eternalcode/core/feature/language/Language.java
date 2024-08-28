@@ -2,11 +2,7 @@ package com.eternalcode.core.feature.language;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 public record Language(@Getter String lang, List<String> aliases) {
 
@@ -67,7 +63,7 @@ public record Language(@Getter String lang, List<String> aliases) {
     }
 
     public Locale toLocale() {
-        return new Locale(this.lang);
+        return Locale.forLanguageTag(this.lang);
     }
 
 }

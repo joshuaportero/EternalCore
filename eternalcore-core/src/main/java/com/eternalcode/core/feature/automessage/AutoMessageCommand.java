@@ -1,6 +1,5 @@
 package com.eternalcode.core.feature.automessage;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.notice.NoticeService;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -23,7 +22,6 @@ class AutoMessageCommand {
     }
 
     @Execute
-    @DescriptionDocs(description = "Toggles the display of automatic messages.")
     void execute(@Context Player player) {
         this.autoMessageService.switchReceiving(player.getUniqueId()).thenAccept(receiving -> {
             if (receiving) {

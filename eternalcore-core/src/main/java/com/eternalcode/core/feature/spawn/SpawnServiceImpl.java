@@ -1,7 +1,7 @@
 package com.eternalcode.core.feature.spawn;
 
 import com.eternalcode.core.configuration.ConfigurationManager;
-import com.eternalcode.core.configuration.implementation.LocationsConfiguration;
+import com.eternalcode.core.config.LocationsConfiguration;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Service;
 import com.eternalcode.commons.bukkit.position.Position;

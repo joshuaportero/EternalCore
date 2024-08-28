@@ -21,5 +21,4 @@ interface PrisonerRepository {
     CompletableFuture<List<JailedPlayer>> getAllPrisoners();
 
     void savePrisoner(JailedPlayer jailedPlayer);
-
 }

@@ -1,6 +1,5 @@
 package com.eternalcode.core.feature.spawn;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.notice.NoticeService;
 import dev.rollczi.litecommands.annotations.command.Command;
@@ -23,7 +22,6 @@ class SetSpawnCommand {
     }
 
     @Execute
-    @DescriptionDocs(description = "Set spawn location")
     void execute(@Context Player player) {
         this.spawnService.setSpawnLocation(player.getLocation());
 

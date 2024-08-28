@@ -1,6 +1,6 @@
 package com.eternalcode.core.placeholder;
 
-import com.eternalcode.core.configuration.implementation.PlaceholdersConfiguration;
+import com.eternalcode.core.config.PlaceholdersConfiguration;
 import com.eternalcode.core.injector.annotations.component.Controller;
 import com.eternalcode.core.publish.Subscriber;
 import com.eternalcode.core.publish.event.EternalInitializeEvent;

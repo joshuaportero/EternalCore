@@ -1,19 +1,12 @@
 package com.eternalcode.core.feature.randomteleport;
 
-import com.eternalcode.core.configuration.implementation.LocationsConfiguration;
+import com.eternalcode.commons.bukkit.position.PositionAdapter;
+import com.eternalcode.core.config.LocationsConfiguration;
 import com.eternalcode.core.event.EventCaller;
-import com.eternalcode.core.feature.randomteleport.event.PreRandomTeleportEvent;
-import com.eternalcode.core.feature.randomteleport.event.RandomTeleportEvent;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Service;
-import com.eternalcode.commons.bukkit.position.PositionAdapter;
 import io.papermc.lib.PaperLib;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Server;
-import org.bukkit.World;
-import org.bukkit.WorldBorder;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -40,7 +33,7 @@ class RandomTeleportServiceImpl implements RandomTeleportService {
         Material.AIR,
         Material.CAVE_AIR,
         Material.VOID_AIR,
-        Material.GRASS,
+        Material.GRASS_BLOCK,
         Material.TALL_GRASS,
         Material.VINE
     );
@@ -80,7 +73,7 @@ class RandomTeleportServiceImpl implements RandomTeleportService {
 
     @Override
     public CompletableFuture<TeleportResult> teleport(Player player, World world) {
-        PreRandomTeleportEvent preRandomTeleportEvent = this.eventCaller.callEvent(new PreRandomTeleportEvent(player));
+        com.eternalcode.core.feature.randomteleport.PreRandomTeleportEvent preRandomTeleportEvent = this.eventCaller.callEvent(new PreRandomTeleportEvent(player));
 
         if (preRandomTeleportEvent.isCancelled()) {
             return CompletableFuture.completedFuture(new TeleportResult(false, player.getLocation()));

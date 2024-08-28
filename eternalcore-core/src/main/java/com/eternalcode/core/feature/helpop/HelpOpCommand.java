@@ -1,7 +1,6 @@
 package com.eternalcode.core.feature.helpop;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
-import com.eternalcode.core.configuration.implementation.PluginConfiguration;
+import com.eternalcode.core.config.PluginConfiguration;
 import com.eternalcode.core.delay.Delay;
 import com.eternalcode.core.event.EventCaller;
 import com.eternalcode.core.feature.helpop.event.HelpOpEvent;
@@ -40,7 +39,6 @@ class HelpOpCommand {
     }
 
     @Execute
-    @DescriptionDocs(description = "Send helpop message to all administrator with eternalcore.helpop.spy permission", arguments = "<message>")
     void execute(@Context Player player, @Join String message) {
         UUID uuid = player.getUniqueId();
         HelpOpEvent event = new HelpOpEvent(player, message);

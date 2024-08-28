@@ -34,5 +34,4 @@ class BeanHolderImpl<T> implements BeanHolder<T> {
     public String getName() {
         return this.name;
     }
-
 }

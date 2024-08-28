@@ -1,28 +1,21 @@
 package com.eternalcode.core.feature.chat;
 
-import com.eternalcode.annotations.scan.feature.FeatureDocs;
 import com.eternalcode.core.event.EventCaller;
-import static com.eternalcode.core.feature.chat.ChatManagerController.CHAT_BYPASS_PERMISSION;
-import static com.eternalcode.core.feature.chat.ChatManagerController.CHAT_SLOWMODE_BYPASS_PERMISSION;
-import com.eternalcode.core.feature.chat.event.restrict.ChatRestrictCause;
-import com.eternalcode.core.feature.chat.event.restrict.ChatRestrictEvent;
+import com.eternalcode.core.feature.chat.restrict.ChatRestrictCause;
+import com.eternalcode.core.feature.chat.restrict.ChatRestrictEvent;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Controller;
 import com.eternalcode.core.notice.NoticeService;
 import com.eternalcode.core.util.DurationUtil;
-import java.time.Duration;
-import java.util.UUID;
+import io.papermc.paper.event.player.AsyncChatEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-@FeatureDocs(
-    name = "ChatManager",
-    description = "It allows you to manage chat, with slowmode, chat clear, chat on/off etc.",
-    permission = {CHAT_SLOWMODE_BYPASS_PERMISSION, CHAT_BYPASS_PERMISSION}
-)
+import java.time.Duration;
+import java.util.UUID;
+
 @Controller
 class ChatManagerController implements Listener {
 
@@ -48,7 +41,7 @@ class ChatManagerController implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-    void onChatSlowMode(AsyncPlayerChatEvent event) {
+    void onChatSlowMode(AsyncChatEvent event) {
         Player player = event.getPlayer();
 
         UUID uniqueId = player.getUniqueId();
@@ -86,7 +79,7 @@ class ChatManagerController implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    void markUseChat(AsyncPlayerChatEvent event) {
+    void markUseChat(AsyncChatEvent event) {
         this.chatService.markUseChat(event.getPlayer().getUniqueId());
     }
 }

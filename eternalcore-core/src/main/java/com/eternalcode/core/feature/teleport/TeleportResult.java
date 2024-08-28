@@ -5,5 +5,4 @@ public enum TeleportResult {
     SUCCESS,
     FAILED,
     MOVED_DURING_TELEPORT
-
 }

@@ -1,7 +1,6 @@
 package com.eternalcode.core.feature.unknowncommand;
 
-import com.eternalcode.annotations.scan.feature.FeatureDocs;
-import com.eternalcode.core.configuration.implementation.PluginConfiguration;
+import com.eternalcode.core.config.PluginConfiguration;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Controller;
 import com.eternalcode.core.notice.NoticeService;
@@ -12,11 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.help.HelpTopic;
 
-@FeatureDocs(
-    name = "Standard help message",
-    description = "It allows you to replace the standard help message",
-    permission = "eternalcore.commandblocker.bypass"
-)
 @Controller
 class UnknownCommandMessageController implements Listener {
 

@@ -24,10 +24,7 @@ public class BeanProcessor {
     }
 
     public <BEAN> void process(DependencyProvider dependencyProvider, BeanHolder<BEAN> bean) {
-        for (Annotation annotation : bean.getAnnotations()) {
-            this.process(dependencyProvider, annotation, bean);
-        }
-
+        bean.getAnnotations().forEach(annotation -> this.process(dependencyProvider, annotation, bean));
         this.process(dependencyProvider, NoneAnnotation.INSTANCE, bean);
     }
 
@@ -38,18 +35,12 @@ public class BeanProcessor {
             return;
         }
 
-        for (Class<?> superClass : ReflectUtil.getAllSuperClasses(bean.getType())) {
+        ReflectUtil.getAllSuperClasses(bean.getType()).forEach(superClass -> {
             Set<Processor<BEAN, A>> beanProcessors = ReflectUtil.unsafeCast(registry.getProcessors(superClass));
-
-            if (beanProcessors == null) {
-                continue;
+            if (beanProcessors != null) {
+                beanProcessors.forEach(processor -> processor.process(dependencyProvider, bean.get(), annotation));
             }
-
-            for (Processor<BEAN, A> processor : beanProcessors) {
-                processor.process(dependencyProvider, bean.get(), annotation);
-            }
-        }
+        });
     }
-
 
 }

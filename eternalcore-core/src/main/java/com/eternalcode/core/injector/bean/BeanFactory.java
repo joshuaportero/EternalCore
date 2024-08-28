@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class BeanFactory implements DependencyProvider {
 
-    private static final ThreadLocal<List<Class<?>>> dependencyStacktrace = ThreadLocal.withInitial(() -> new ArrayList<>());
+    private static final ThreadLocal<List<Class<?>>> dependencyStacktrace = ThreadLocal.withInitial(ArrayList::new);
 
     private final BeanContainer container = new BeanContainer();
     private final BeanCandidateContainer candidateContainer = new BeanCandidateContainer();
@@ -32,7 +32,7 @@ public class BeanFactory implements DependencyProvider {
         if (stacktrace.contains(type)) {
             stacktrace.add(type);
             String cycledDependencies = stacktrace.stream()
-                .map(dependencyType -> dependencyType.getName())
+                .map(Class::getName)
                 .collect(Collectors.joining(System.lineSeparator() + " -> "));
             stacktrace.remove(stacktrace.size() - 1);
 
@@ -58,8 +58,7 @@ public class BeanFactory implements DependencyProvider {
             }
 
             return beans.get(0);
-        }
-        finally {
+        } finally {
             stacktrace.remove(stacktrace.size() - 1);
         }
     }

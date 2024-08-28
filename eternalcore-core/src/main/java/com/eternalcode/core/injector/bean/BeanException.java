@@ -19,5 +19,4 @@ public class BeanException extends TypedException {
     public BeanException(Throwable cause, Class<?> type) {
         super(cause, type);
     }
-
 }

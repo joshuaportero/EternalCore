@@ -1,15 +1,14 @@
 package com.eternalcode.core.feature.teleportrequest;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
-import com.eternalcode.core.injector.annotations.Inject;
-import com.eternalcode.core.notice.NoticeService;
 import com.eternalcode.commons.bukkit.position.PositionAdapter;
 import com.eternalcode.core.feature.teleport.TeleportTaskService;
+import com.eternalcode.core.injector.annotations.Inject;
+import com.eternalcode.core.notice.NoticeService;
 import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
-import dev.rollczi.litecommands.annotations.command.Command;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
@@ -36,7 +35,6 @@ class TpaAcceptCommand {
     }
 
     @Execute
-    @DescriptionDocs(description = "Accept teleport request", arguments = "<player>")
     void executeTarget(@Context Player player, @Arg(RequesterArgument.KEY) Player target) {
         this.teleportTaskService.createTeleport(
             target.getUniqueId(),
@@ -63,7 +61,6 @@ class TpaAcceptCommand {
     }
 
     @Execute(name = "-all", aliases = "*")
-    @DescriptionDocs(description = "Accept all teleport requests")
     void executeAll(@Context Player player) {
         List<UUID> requests = this.requestService.findRequests(player.getUniqueId());
 

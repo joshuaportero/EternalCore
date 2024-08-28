@@ -5,7 +5,6 @@ import com.eternalcode.core.database.DatabaseManager;
 import com.eternalcode.core.database.wrapper.AbstractRepositoryOrmLite;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Repository;
-
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
@@ -28,7 +27,7 @@ class PrisonerRepositoryOrmLite extends AbstractRepositoryOrmLite implements Pri
     @Override
     public CompletableFuture<Optional<JailedPlayer>> getPrisoner(UUID uuid) {
         return this.selectSafe(PrisonerWrapper.class, uuid)
-            .thenApply(optional -> optional.map(prisonerWrapper -> prisonerWrapper.toPrisoner()));
+            .thenApply(optional -> optional.map(PrisonerWrapper::toPrisoner));
     }
 
     @Override

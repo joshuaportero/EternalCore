@@ -27,8 +27,7 @@ class NoticeTypeArgument extends AbstractViewerArgument<NoticeTextType> {
     public ParseResult<NoticeTextType> parse(Invocation<CommandSender> invocation, String argument, Translation translation) {
         try {
             return ParseResult.success(NoticeTextType.valueOf(argument.toUpperCase()));
-        }
-        catch (IllegalArgumentException exception) {
+        } catch (IllegalArgumentException exception) {
             return ParseResult.failure(translation.argument().noArgument());
         }
     }
@@ -39,5 +38,4 @@ class NoticeTypeArgument extends AbstractViewerArgument<NoticeTextType> {
             .map(notificationType -> notificationType.name().toLowerCase())
             .collect(SuggestionResult.collector());
     }
-
 }

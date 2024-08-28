@@ -1,15 +1,14 @@
 package com.eternalcode.core.feature.teleport.command;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
+import com.eternalcode.core.feature.teleport.TeleportService;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.notice.NoticeService;
-import com.eternalcode.core.feature.teleport.TeleportService;
 import com.eternalcode.core.viewer.Viewer;
 import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
-import dev.rollczi.litecommands.annotations.command.Command;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -27,13 +26,11 @@ class TeleportToPositionCommand {
     }
 
     @Execute
-    @DescriptionDocs(description = "Teleport to specified coordinates", arguments = "<x> <y> <z>")
     void execute(@Context Player player, @Arg Location location) {
         this.teleport(player, location);
     }
 
     @Execute
-    @DescriptionDocs(description = "Teleport specified player to specified coordinates", arguments = "<x> <y> <z> <player>")
     void execute(@Context Viewer viewer, @Arg Location location, @Arg Player target) {
         this.teleport(target, location);
 

@@ -6,16 +6,11 @@ plugins {
 }
 
 dependencies {
-    // modules
-    implementation(project(":eternalcore-api"))
-    implementation(project(":eternalcore-paper"))
-    api(project(":eternalcore-docs-api"))
-
     // Base libraries
     compileOnly("org.jetbrains:annotations:${Versions.JETBRAINS_ANNOTATIONS}")
 
     // Minecraft & Bridges API
-    compileOnlyApi("org.spigotmc:spigot-api:${Versions.SPIGOT_API}")
+    compileOnlyApi("io.papermc.paper:paper-api:${Versions.PAPER_API}")
     compileOnly("me.clip:placeholderapi:${Versions.PLACEHOLDER_API}")
 
     // Lombok
@@ -33,7 +28,7 @@ dependencies {
 
 eternalShadow {
     // Paper and Adventure libraries
-    library("io.papermc:paperlib:${Versions.PAPERLIB}")
+    library("io.papermc:paperlib:${Versions.PAPER_LIB}")
     libraryRelocate(
         "io.papermc.lib",
         "net.kyori",
@@ -90,10 +85,6 @@ eternalShadow {
     // gui library
     library("dev.triumphteam:triumph-gui:${Versions.TRIUMPH_GUI}")
     libraryRelocate("dev.triumphteam")
-
-    // metrics
-    library("org.bstats:bstats-bukkit:${Versions.BSTATS}")
-    libraryRelocate("org.bstats")
 
     // caffeine
     library("com.github.ben-manes.caffeine:caffeine:${Versions.CAFFEINE}")

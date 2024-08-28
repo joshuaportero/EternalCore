@@ -1,5 +1,8 @@
 package com.eternalcode.core.shared;
 
+import lombok.Getter;
+
+@Getter
 public class TypedException extends RuntimeException {
 
     private final Class<?> type;
@@ -22,9 +25,4 @@ public class TypedException extends RuntimeException {
         super(cause);
         this.type = type;
     }
-
-    public Class<?> getType() {
-        return this.type;
-    }
-
 }

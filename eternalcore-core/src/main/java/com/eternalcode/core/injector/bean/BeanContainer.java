@@ -28,5 +28,4 @@ class BeanContainer {
 
         return new ArrayList<>(beans);
     }
-
 }

@@ -63,7 +63,7 @@ fun applyExtensionShadow(eternalShadow: EternalShadowExtension) {
         val rawDependencies =  eternalShadow.libraries.joinToString("|")
             .replace(".", "{}")
         val rawRepositories = repositories
-            .filterIsInstance(MavenArtifactRepository::class.java)
+            .filterIsInstance<MavenArtifactRepository>()
             .filter { it.url.toString().startsWith("https://") }
             .map { it.url }
             .joinToString("|")

@@ -1,6 +1,5 @@
 package com.eternalcode.core.configuration;
 
-import com.eternalcode.annotations.scan.feature.FeatureDocs;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Service;
 import org.apache.commons.io.FileUtils;
@@ -13,10 +12,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
-@FeatureDocs(
-    name = "Configuration Backup",
-    description = "Backs up the full configuration to prevent config destruction, backup is only 3 days back"
-)
 @Service
 public class ConfigurationBackupService {
 
@@ -29,6 +24,7 @@ public class ConfigurationBackupService {
         this.dataFolder = dataFolder;
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void createBackup() {
         File backupFolder = new File(this.dataFolder, BACKUP_FOLDER_NAME);
 
@@ -81,16 +77,17 @@ public class ConfigurationBackupService {
         }
     }
 
+    @SuppressWarnings("CallToPrintStackTrace")
     private void copyToBackupFile(File targetFolder, File path) {
         try {
             Files.copy(targetFolder.toPath(), path.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
 
     // delete backup folders older than X days
+    @SuppressWarnings("CallToPrintStackTrace")
     private void deleteIfOlderDirectory(File backupFolder) {
         File[] backupFolders = backupFolder.listFiles(File::isDirectory);
 
@@ -112,8 +109,7 @@ public class ConfigurationBackupService {
                 if (days > 3) {
                     FileUtils.deleteDirectory(folder);
                 }
-            }
-            catch (DateTimeParseException | IOException exception) {
+            } catch (DateTimeParseException | IOException exception) {
                 exception.printStackTrace();
             }
         }

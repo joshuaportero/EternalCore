@@ -4,9 +4,10 @@ import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Task;
 import com.eternalcode.core.notice.NoticeService;
 import com.eternalcode.core.util.DurationUtil;
-import java.util.concurrent.TimeUnit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
+
+import java.util.concurrent.TimeUnit;
 
 @Task(period = 1, delay = 1, unit = TimeUnit.SECONDS)
 class JailTask implements Runnable {

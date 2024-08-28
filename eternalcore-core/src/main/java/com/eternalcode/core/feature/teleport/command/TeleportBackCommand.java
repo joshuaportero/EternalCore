@@ -1,15 +1,14 @@
 package com.eternalcode.core.feature.teleport.command;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
+import com.eternalcode.core.feature.teleport.TeleportService;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.notice.NoticeService;
-import com.eternalcode.core.feature.teleport.TeleportService;
 import com.eternalcode.core.viewer.Viewer;
 import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
-import dev.rollczi.litecommands.annotations.command.Command;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -29,7 +28,6 @@ class TeleportBackCommand {
 
     @Execute
     @Permission("eternalcore.back")
-    @DescriptionDocs(description = "Teleport to last location")
     void execute(@Context Player player) {
         Optional<Location> location = this.teleportService.getLastLocation(player.getUniqueId());
 
@@ -45,7 +43,6 @@ class TeleportBackCommand {
 
     @Execute
     @Permission("eternalcore.back.other")
-    @DescriptionDocs(description = "Teleport specified player to last location", arguments = "<player>")
     void execute(@Context Viewer viewer, @Arg Player player) {
         Optional<Location> location = this.teleportService.getLastLocation(player.getUniqueId());
 
@@ -65,5 +62,4 @@ class TeleportBackCommand {
             .placeholder("{PLAYER}", player.getName())
             .send();
     }
-
 }

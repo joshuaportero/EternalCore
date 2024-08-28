@@ -1,9 +1,8 @@
 package com.eternalcode.core.feature.spawn;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
 import com.eternalcode.commons.bukkit.position.Position;
 import com.eternalcode.commons.bukkit.position.PositionAdapter;
-import com.eternalcode.core.configuration.implementation.LocationsConfiguration;
+import com.eternalcode.core.config.LocationsConfiguration;
 import com.eternalcode.core.feature.teleport.TeleportService;
 import com.eternalcode.core.feature.teleport.TeleportTaskService;
 import com.eternalcode.core.injector.annotations.Inject;
@@ -14,9 +13,10 @@ import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
-import java.time.Duration;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+
+import java.time.Duration;
 
 @Command(name = "spawn")
 class SpawnCommand {
@@ -45,7 +45,6 @@ class SpawnCommand {
 
     @Execute
     @Permission("eternalcore.spawn")
-    @DescriptionDocs(description = "Teleports you to spawn location, if you want bypass cooldown use eternalcore.spawn.bypass permission")
     void executeSelf(@Context Player sender) {
         Position position = this.locations.spawn;
 
@@ -94,7 +93,6 @@ class SpawnCommand {
 
     @Execute
     @Permission("eternalcore.spawn.other")
-    @DescriptionDocs(description = "Teleports specified player to spawn location", arguments = "<player>")
     void execute(@Context Viewer sender, @Arg Player player) {
         Position position = this.locations.spawn;
 

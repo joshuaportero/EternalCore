@@ -15,8 +15,6 @@ import dev.rollczi.litecommands.LiteCommandsBuilder;
 import dev.rollczi.litecommands.annotations.LiteCommandsAnnotations;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.command.RootCommand;
-import java.lang.reflect.Method;
-
 import dev.rollczi.litecommands.argument.ArgumentKey;
 import dev.rollczi.litecommands.argument.resolver.MultipleArgumentResolver;
 import dev.rollczi.litecommands.context.ContextProvider;
@@ -28,6 +26,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
@@ -36,6 +35,7 @@ public final class BeanProcessorFactory {
     private BeanProcessorFactory() {
     }
 
+    @SuppressWarnings("unchecked")
     public static BeanProcessor defaultProcessors(Plugin plugin) {
         Server server = plugin.getServer();
         PluginManager pluginManager = server.getPluginManager();
@@ -50,8 +50,7 @@ public final class BeanProcessorFactory {
 
                 if (period.isZero()) {
                     scheduler.laterSync(runnable, delay);
-                }
-                else {
+                } else {
                     scheduler.timerSync(runnable, delay, period);
                 }
             })
@@ -87,17 +86,14 @@ public final class BeanProcessorFactory {
             })
             .onProcess(LiteArgument.class, MultipleArgumentResolver.class, (provider, multilevelArgument, liteArgument) -> {
                 LiteCommandsBuilder<?, ?, ?> builder = provider.getDependency(LiteCommandsBuilder.class);
-
                 builder.argument(liteArgument.type(), ArgumentKey.of(liteArgument.name()), multilevelArgument);
             })
             .onProcess(LiteHandler.class, ResultHandler.class, (provider, handler, liteHandler) -> {
                 LiteCommandsBuilder<?, ?, ?> builder = provider.getDependency(LiteCommandsBuilder.class);
-
                 builder.result(liteHandler.value(), handler);
             })
             .onProcess(LiteContextual.class, ContextProvider.class, (provider, contextProvider, liteContextual) -> {
                 LiteCommandsBuilder<?, ?, ?> builder = provider.getDependency(LiteCommandsBuilder.class);
-
                 builder.context(liteContextual.value(), contextProvider);
             })
             .onProcess(LiteCommandEditor.class, Editor.class, (provider, editor, liteCommandEditor) -> {

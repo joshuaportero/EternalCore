@@ -1,6 +1,5 @@
 package com.eternalcode.core.feature.language;
 
-import com.eternalcode.annotations.scan.feature.FeatureDocs;
 import com.eternalcode.commons.adventure.AdventureUtil;
 import com.eternalcode.core.configuration.contextual.ConfigItem;
 import com.eternalcode.core.feature.language.config.LanguageConfiguration;
@@ -26,10 +25,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@FeatureDocs(
-    name = "Language Inventory",
-    description = "This feature allows you to create a language selector inventory"
-)
 @Service
 class LanguageInventory {
 
@@ -72,7 +67,7 @@ class LanguageInventory {
         if (languageSelector.border.fill) {
             ItemBuilder borderItem = ItemBuilder.from(languageSelector.border.material);
 
-            if (!languageSelector.border.name.equals("")) {
+            if (!languageSelector.border.name.isEmpty()) {
                 borderItem.name(AdventureUtil.resetItalic(this.miniMessage.deserialize(languageSelector.border.name)));
             }
 

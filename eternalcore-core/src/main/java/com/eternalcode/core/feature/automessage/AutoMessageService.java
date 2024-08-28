@@ -1,9 +1,8 @@
 package com.eternalcode.core.feature.automessage;
 
-import com.eternalcode.annotations.scan.feature.FeatureDocs;
 import com.eternalcode.commons.RandomElementUtil;
 import com.eternalcode.commons.scheduler.Scheduler;
-import com.eternalcode.core.configuration.implementation.PluginConfiguration;
+import com.eternalcode.core.config.PluginConfiguration;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Service;
 import com.eternalcode.core.notice.NoticeService;
@@ -18,9 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import org.bukkit.Server;
 import org.bukkit.entity.Entity;
-import panda.std.reactive.Completable;
 
-@FeatureDocs(name = "AutoMessage", description = "Automatically sends messages to players at a given time interval.")
 @Service
 class AutoMessageService {
 

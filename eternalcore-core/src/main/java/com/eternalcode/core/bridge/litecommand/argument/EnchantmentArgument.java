@@ -10,12 +10,14 @@ import dev.rollczi.litecommands.argument.parser.ParseResult;
 import dev.rollczi.litecommands.invocation.Invocation;
 import dev.rollczi.litecommands.suggestion.SuggestionContext;
 import dev.rollczi.litecommands.suggestion.SuggestionResult;
-import java.util.Locale;
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 
-import java.util.Arrays;
+import java.util.Locale;
+import java.util.stream.StreamSupport;
 
 @LiteArgument(type = Enchantment.class)
 class EnchantmentArgument extends AbstractViewerArgument<Enchantment> {
@@ -27,7 +29,10 @@ class EnchantmentArgument extends AbstractViewerArgument<Enchantment> {
 
     @Override
     public ParseResult<Enchantment> parse(Invocation<CommandSender> invocation, String argument, Translation translation) {
-        Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(argument.toLowerCase(Locale.ROOT)));
+        NamespacedKey key = NamespacedKey.minecraft(argument.toLowerCase(Locale.ROOT));
+        Enchantment enchantment = RegistryAccess.registryAccess()
+            .getRegistry(RegistryKey.ENCHANTMENT)
+            .get(key);
 
         if (enchantment == null) {
             return ParseResult.failure(translation.argument().noEnchantment());
@@ -38,7 +43,10 @@ class EnchantmentArgument extends AbstractViewerArgument<Enchantment> {
 
     @Override
     public SuggestionResult suggest(Invocation<CommandSender> invocation, Argument<Enchantment> argument, SuggestionContext context) {
-        return Arrays.stream(Enchantment.values())
+        return StreamSupport.stream(
+                RegistryAccess.registryAccess()
+                    .getRegistry(RegistryKey.ENCHANTMENT)
+                    .spliterator(), false)
             .map(Enchantment::getKey)
             .map(NamespacedKey::getKey)
             .collect(SuggestionResult.collector());

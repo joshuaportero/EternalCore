@@ -1,6 +1,5 @@
 package com.eternalcode.core.feature.language;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.user.User;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -21,7 +20,6 @@ class LanguageCommand {
     }
 
     @Execute
-    @DescriptionDocs(description = "Open language inventory")
     void execute(@Context Player player, @Context User user) {
         this.languageInventory.open(player, user.getLanguage());
     }

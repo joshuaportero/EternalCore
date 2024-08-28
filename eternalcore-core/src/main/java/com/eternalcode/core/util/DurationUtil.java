@@ -30,7 +30,7 @@ public class DurationUtil {
     public static String format(Duration duration, boolean removeMillis) {
         if (removeMillis) {
             if (duration.toMillis() < ONE_SECOND.toMillis()) {
-                return "0s";
+                return "now";
             }
 
             return WITHOUT_MILLIS_FORMAT.format(duration);
@@ -40,6 +40,6 @@ public class DurationUtil {
     }
 
     public static String format(Duration duration) {
-        return format(duration, false);
+        return format(duration, true);
     }
 }

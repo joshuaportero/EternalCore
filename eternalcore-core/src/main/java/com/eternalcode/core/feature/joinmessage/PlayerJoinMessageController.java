@@ -1,20 +1,15 @@
 package com.eternalcode.core.feature.joinmessage;
 
-import com.eternalcode.annotations.scan.feature.FeatureDocs;
 import com.eternalcode.commons.RandomElementUtil;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Controller;
 import com.eternalcode.core.notice.NoticeService;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import panda.utilities.StringUtils;
 
-@FeatureDocs(
-    description = "Send a random welcome message from config to a player when they join the server",
-    name = "Player Join Message"
-)
 @Controller
 class PlayerJoinMessageController implements Listener {
 
@@ -35,7 +30,7 @@ class PlayerJoinMessageController implements Listener {
             .player(player.getUniqueId())
             .sendAsync();
 
-        event.setJoinMessage(StringUtils.EMPTY);
+        event.joinMessage(Component.empty());
 
         this.noticeService.create()
             .noticeOptional(translation -> RandomElementUtil.randomElement(translation.event().joinMessage()))

@@ -8,11 +8,7 @@ import com.eternalcode.core.util.ReflectUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DependencyScanner {
 
@@ -44,8 +40,8 @@ public class DependencyScanner {
 
     public List<BeanCandidate> scan(Package... packages) {
         String[] packageNames = Arrays.stream(packages)
-            .map(onePackage -> onePackage.getName())
-            .toArray((int length) -> new String[length]);
+            .map(Package::getName)
+            .toArray(String[]::new);
 
         return this.scan(packageNames);
     }
@@ -122,8 +118,8 @@ public class DependencyScanner {
 
     private List<Class<?>> scanPackages(List<String> packages) {
         return packages.stream()
-            .map(packageName -> this.scanPackage(packageName))
-            .flatMap(classesFromPackage -> classesFromPackage.stream())
+            .map(this::scanPackage)
+            .flatMap(Collection::stream)
             .toList();
     }
 

@@ -22,5 +22,4 @@ public interface BeanHolder<T> {
     static <T> BeanHolder<T> of(String name, T instance) {
         return new BeanHolderImpl<>(name, instance);
     }
-
 }

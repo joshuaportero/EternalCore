@@ -31,8 +31,7 @@ public class ResourceLocator {
     public File toFile() {
         try {
             return new File(this.url.toURI());
-        }
-        catch (URISyntaxException exception) {
+        } catch (URISyntaxException exception) {
             throw new RuntimeException(exception);
         }
     }
@@ -44,8 +43,7 @@ public class ResourceLocator {
     public static ResourceLocator fromURI(URI uri) {
         try {
             return new ResourceLocator(uri.toURL());
-        }
-        catch (MalformedURLException exception) {
+        } catch (MalformedURLException exception) {
             throw new RuntimeException(exception);
         }
     }
@@ -57,17 +55,15 @@ public class ResourceLocator {
     public static ResourceLocator fromFile(File file) {
         try {
             return new ResourceLocator(file.toURI().toURL());
-        }
-        catch (MalformedURLException exception) {
+        } catch (MalformedURLException exception) {
             throw new RuntimeException(exception);
         }
     }
 
     public static ResourceLocator fromString(String string) {
         try {
-            return new ResourceLocator(new URL(string));
-        }
-        catch (MalformedURLException exception) {
+            return new ResourceLocator(new URI(string).toURL());
+        } catch (MalformedURLException | URISyntaxException exception) {
             throw new RuntimeException(exception);
         }
     }

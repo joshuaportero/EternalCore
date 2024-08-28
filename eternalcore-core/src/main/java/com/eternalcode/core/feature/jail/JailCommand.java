@@ -1,7 +1,5 @@
 package com.eternalcode.core.feature.jail;
 
-import com.eternalcode.annotations.scan.command.DescriptionDocs;
-import com.eternalcode.annotations.scan.feature.FeatureDocs;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.notice.NoticeService;
 import com.eternalcode.core.util.DurationUtil;
@@ -11,18 +9,14 @@ import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
-import java.time.Duration;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
-@Command(name = "jail", aliases = { "jails" })
+import java.time.Duration;
+
+@Command(name = "jail", aliases = {"jails"})
 @Permission("eternalcore.jail")
-@FeatureDocs(
-    name = "Jail Bypass",
-    permission = { "eternalcore.jail.bypass" },
-    description = "Permission allows to bypass jail punishment"
-)
 class JailCommand {
 
     private final JailService jailService;
@@ -41,7 +35,6 @@ class JailCommand {
     @Async
     @Execute(name = "setup")
     @Permission("eternalcore.jail.setup")
-    @DescriptionDocs(description = "Define jail spawn area")
     void executeJailSetup(@Context Player player) {
         Location location = player.getLocation();
 
@@ -59,7 +52,6 @@ class JailCommand {
     @Async
     @Execute(name = "setup")
     @Permission("eternalcore.jail.setup")
-    @DescriptionDocs(description = "Define jail spawn area", arguments = "<location>")
     void executeJailSetup(@Context Player player, @Arg Location location) {
         boolean isLastJailSet = this.jailService.getJailAreaLocation().isPresent();
 
@@ -77,7 +69,6 @@ class JailCommand {
     @Async
     @Execute(name = "remove")
     @Permission("eternalcore.jail.setup")
-    @DescriptionDocs(description = "Remove jail spawn area")
     void executeJailRemove(@Context Player player) {
         if (this.isPrisonAvailable(player)) {
             return;
@@ -93,21 +84,18 @@ class JailCommand {
 
     @Execute(name = "detain")
     @Permission("eternalcore.jail.detain")
-    @DescriptionDocs(description = "Detain self")
     void executeJailDetainSelf(@Context Player player) {
         this.executeJailDetainForTime(player, player, this.jailSettings.defaultJailDuration());
     }
 
     @Execute(name = "detain")
     @Permission("eternalcore.jail.detain")
-    @DescriptionDocs(description = "Detain a player", arguments = "<player>")
     void executeJailDetain(@Context Player player, @Arg Player target) {
         this.executeJailDetainForTime(player, target, this.jailSettings.defaultJailDuration());
     }
 
     @Execute(name = "detain")
     @Permission("eternalcore.jail.detain")
-    @DescriptionDocs(description = "Detain a player for some time", arguments = "<player> <time>")
     void executeJailDetainForTime(@Context Player player, @Arg Player target, @Arg Duration duration) {
         if (this.isPrisonAvailable(player)) {
             return;
@@ -148,14 +136,12 @@ class JailCommand {
 
     @Execute(name = "release")
     @Permission("eternalcore.jail.release")
-    @DescriptionDocs(description = "Release self from jail")
     void executeJailReleaseSelf(@Context Player player) {
         this.executeJailRelease(player, player);
     }
 
     @Execute(name = "release")
     @Permission("eternalcore.jail.release")
-    @DescriptionDocs(description = "Release a player from jail", arguments = "<player>")
     void executeJailRelease(@Context Player player, @Arg Player target) {
         if (!this.jailService.isPlayerJailed(target.getUniqueId())) {
             this.noticeService.create()
@@ -182,7 +168,6 @@ class JailCommand {
 
     @Execute(name = "list")
     @Permission("eternalcore.jail.list")
-    @DescriptionDocs(description = "List all jailed players")
     void executeJailList(@Context Player player) {
         if (this.jailService.getJailedPlayers().isEmpty()) {
             this.noticeService.create()

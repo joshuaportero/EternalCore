@@ -10,7 +10,7 @@ eternalShadowCompiler {
 
     pluginYml {
         main = "com.eternalcode.core.loader.EternalCoreLoader"
-        apiVersion = "1.13"
+        apiVersion = "1.21.1"
         prefix = "EternalCore"
         authors = listOf("EternalCodeTeam", "Portero")
         name = "EternalCore"
