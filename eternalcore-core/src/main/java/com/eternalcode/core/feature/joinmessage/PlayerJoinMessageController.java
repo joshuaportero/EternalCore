@@ -4,7 +4,6 @@ import com.eternalcode.commons.RandomElementUtil;
 import com.eternalcode.core.injector.annotations.Inject;
 import com.eternalcode.core.injector.annotations.component.Controller;
 import com.eternalcode.core.notice.NoticeService;
-import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,7 +29,7 @@ class PlayerJoinMessageController implements Listener {
             .player(player.getUniqueId())
             .sendAsync();
 
-        event.joinMessage(Component.empty());
+        event.joinMessage(null);
 
         this.noticeService.create()
             .noticeOptional(translation -> RandomElementUtil.randomElement(translation.event().joinMessage()))

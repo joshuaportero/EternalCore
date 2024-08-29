@@ -32,8 +32,7 @@ public class DependencyDownloader {
     public Path downloadDependency(Dependency dependency) {
         try {
             return this.tryDownloadDependency(dependency);
-        }
-        catch (URISyntaxException exception) {
+        } catch (URISyntaxException exception) {
             throw new DependencyException(exception);
         }
     }
@@ -52,8 +51,7 @@ public class DependencyDownloader {
                 Path path = this.downloadJarAndSave(repository, dependency, localPath);
                 this.logger.info("Downloaded " + dependency + " from " + repository);
                 return path;
-            }
-            catch (DependencyException exception) {
+            } catch (DependencyException exception) {
                 exceptions.add(exception);
             }
         }
@@ -74,11 +72,9 @@ public class DependencyDownloader {
 
             Files.createDirectories(parent);
             Files.write(file, bytes, StandardOpenOption.CREATE);
-        }
-        catch (FileNotFoundException | NoSuchFileException fileNotFoundException) {
+        } catch (FileNotFoundException | NoSuchFileException fileNotFoundException) {
             throw new DependencyException("Dependency not found for repositoru: " + dependency.toMavenJar(repository).toString());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DependencyException(e);
         }
 

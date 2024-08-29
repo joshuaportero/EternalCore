@@ -9,10 +9,9 @@ import com.eternalcode.core.publish.event.EternalInitializeEvent;
 import com.eternalcode.core.publish.event.EternalShutdownEvent;
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.LiteCommandsBuilder;
-import dev.rollczi.litecommands.adventure.bukkit.platform.LiteAdventurePlatformExtension;
+import dev.rollczi.litecommands.adventure.LiteAdventureExtension;
 import dev.rollczi.litecommands.annotations.LiteCommandsAnnotations;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
-import net.kyori.adventure.platform.AudienceProvider;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
@@ -25,13 +24,12 @@ class LiteCommandsSetup implements Subscriber {
     public LiteCommandsBuilder<CommandSender, ?, ?> liteCommandsBuilder(
         Plugin plugin,
         Server server,
-        AudienceProvider audiencesProvider,
         MiniMessage miniMessage,
         LiteCommandsAnnotations<CommandSender> liteCommandsAnnotations
     ) {
         return LiteBukkitFactory.builder("eternalcore", plugin, server)
             .commands(liteCommandsAnnotations)
-            .extension(new LiteAdventurePlatformExtension<CommandSender>(audiencesProvider), extension -> extension
+            .extension(new LiteAdventureExtension<>(), config -> config
                 .serializer(miniMessage)
             );
     }

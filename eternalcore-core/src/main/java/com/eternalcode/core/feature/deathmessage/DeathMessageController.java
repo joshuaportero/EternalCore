@@ -26,7 +26,7 @@ class DeathMessageController implements Listener {
     void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        event.setDeathMessage(null);
+        event.deathMessage(null);
 
         if (player.getKiller() != null) {
             this.noticeService.create()
