@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Called before an async player teleportation. (This event is not async)
- * Only called when the {@link com.eternalcode.core.feature.teleport.TeleportService} teleports the player, but
+ * Only called when the {@link TeleportService} teleports the player, but
  * this event is not called when the player teleports using the vanilla method.
  */
 public class TeleportEvent extends PlayerEvent implements Cancellable {

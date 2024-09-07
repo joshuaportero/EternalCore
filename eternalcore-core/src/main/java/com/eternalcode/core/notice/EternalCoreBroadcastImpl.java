@@ -7,11 +7,8 @@ import com.eternalcode.multification.executor.AsyncExecutor;
 import com.eternalcode.multification.locate.LocaleProvider;
 import com.eternalcode.multification.notice.Notice;
 import com.eternalcode.multification.notice.NoticeBroadcastImpl;
-import com.eternalcode.multification.notice.NoticeKey;
 import com.eternalcode.multification.notice.provider.TextMessageProvider;
-import com.eternalcode.multification.notice.resolver.NoticeContent;
 import com.eternalcode.multification.notice.resolver.NoticeResolverRegistry;
-import com.eternalcode.multification.notice.resolver.chat.ChatContent;
 import com.eternalcode.multification.notice.resolver.text.TextContent;
 import com.eternalcode.multification.platform.PlatformBroadcaster;
 import com.eternalcode.multification.shared.Replacer;
@@ -28,6 +25,7 @@ import java.util.function.Function;
 public class EternalCoreBroadcastImpl<Viewer, Translation, B extends EternalCoreBroadcastImpl<Viewer, Translation, B>>
     extends NoticeBroadcastImpl<Viewer, Translation, B> {
 
+    @SuppressWarnings("UnstableApiUsage")
     public EternalCoreBroadcastImpl(
         AsyncExecutor asyncExecutor,
         TranslationProvider<Translation> translationProvider,

@@ -1,7 +1,6 @@
 package com.eternalcode.core.configuration.contextual;
 
 import net.dzikoysk.cdn.entity.Contextual;
-import net.dzikoysk.cdn.entity.Description;
 import org.bukkit.Material;
 
 import java.util.ArrayList;

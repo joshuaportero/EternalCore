@@ -17,9 +17,6 @@ dependencies {
     compileOnly("org.projectlombok:lombok:${Versions.LOMBOK}")
     annotationProcessor("org.projectlombok:lombok:${Versions.LOMBOK}")
 
-    // GitCheck
-    implementation("com.eternalcode:gitcheck:${Versions.GIT_CHECK}")
-
     testImplementation("com.eternalcode:eternalcode-commons-bukkit:${Versions.ETERNALCODE_COMMONS}")
 }
 

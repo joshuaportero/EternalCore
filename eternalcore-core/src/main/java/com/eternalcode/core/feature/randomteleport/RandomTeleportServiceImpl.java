@@ -73,7 +73,7 @@ class RandomTeleportServiceImpl implements RandomTeleportService {
 
     @Override
     public CompletableFuture<TeleportResult> teleport(Player player, World world) {
-        com.eternalcode.core.feature.randomteleport.PreRandomTeleportEvent preRandomTeleportEvent = this.eventCaller.callEvent(new PreRandomTeleportEvent(player));
+        PreRandomTeleportEvent preRandomTeleportEvent = this.eventCaller.callEvent(new PreRandomTeleportEvent(player));
 
         if (preRandomTeleportEvent.isCancelled()) {
             return CompletableFuture.completedFuture(new TeleportResult(false, player.getLocation()));
