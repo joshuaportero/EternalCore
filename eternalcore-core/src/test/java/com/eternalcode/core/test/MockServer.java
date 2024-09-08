@@ -1,16 +1,13 @@
 package com.eternalcode.core.test;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -42,7 +39,7 @@ public class MockServer {
 
         this.onlinePlayers.put(uuid, player);
 
-        PlayerJoinEvent event = new PlayerJoinEvent(player, "Player " + name + " joined to the server!");
+        PlayerJoinEvent event = new PlayerJoinEvent(player, Component.text("Player " + name + " joined to the server!"));
 
         for (Consumer<PlayerJoinEvent> joinListener : this.joinListeners) {
             joinListener.accept(event);
@@ -54,17 +51,18 @@ public class MockServer {
     public void quitPlayer(Player player) {
         this.onlinePlayers.remove(player.getUniqueId());
 
-        PlayerQuitEvent event = new PlayerQuitEvent(player, "Player " + player.getName() + " quit from the server!");
+        PlayerQuitEvent event = new PlayerQuitEvent(player, Component.text("Player " + player.getName() + " has left the server!"), PlayerQuitEvent.QuitReason.DISCONNECTED);
 
         for (Consumer<PlayerQuitEvent> quitListener : this.quitListeners) {
             quitListener.accept(event);
         }
     }
 
+    @SuppressWarnings("UnstableApiUsage")
     public void kickPlayer(Player player) {
         this.onlinePlayers.remove(player.getUniqueId());
 
-        PlayerKickEvent event = new PlayerKickEvent(player, "Player " + player.getName() + " has been kicked!", "Kicked!");
+        PlayerKickEvent event = new PlayerKickEvent(player, Component.text("Player " + player.getName() + " has been kicked!"), Component.text("Kicked!"), PlayerKickEvent.Cause.UNKNOWN);
 
         for (Consumer<PlayerKickEvent> kickListener : this.kickListeners) {
             kickListener.accept(event);

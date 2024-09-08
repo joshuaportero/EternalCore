@@ -1,6 +1,5 @@
 package com.eternalcode.core.locale;
 
-import com.eternalcode.core.configuration.contextual.ConfigItem;
 import com.eternalcode.core.feature.language.Language;
 import com.eternalcode.core.translation.AbstractTranslation;
 import com.eternalcode.multification.bukkit.notice.BukkitNotice;
@@ -9,15 +8,10 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 import net.dzikoysk.cdn.entity.Contextual;
 import net.dzikoysk.cdn.entity.Description;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 @Accessors(fluent = true)
@@ -61,20 +55,6 @@ public class ENTranslation extends AbstractTranslation {
         public Notice youMustGiveWorldName = Notice.chat("<dark_red>✗ <red>You must provide a world name!");
         public Notice incorrectLocation = Notice.chat("<dark_red>✗ <red>Incorrect location!");
         public Notice incorrectNumberOfChunks = Notice.chat("<dark_red>✗ <red>Incorrect number of chunks!");
-    }
-
-    @Description({
-        " ",
-        "# This answer is responsible for the general formatting of some values",
-        "# The purpose of the section is to reduce the repetition of some messages."
-    })
-    public ENFormatSection format = new ENFormatSection();
-
-    @Getter
-    @Contextual
-    public static class ENFormatSection implements Format {
-        public String enable = "<green>enabled";
-        public String disable = "<red>disabled";
     }
 
     @Description({
@@ -140,30 +120,6 @@ public class ENTranslation extends AbstractTranslation {
         public Notice randomPlayerNotFound = Notice.chat("<dark_red>✗ <red>We can't find the player to teleport to!");
         @Description({" ", "# {PLAYER} - The player you were teleported"})
         public Notice teleportedToRandomPlayer = Notice.chat("<dark_red>✗ <red>You have been teleported to a random player (<yellow>{PLAYER}<red>)!");
-    }
-
-    @Description({
-        " ",
-        "# This section is responsible for messages related to random teleport",
-    })
-    public ENRandomTeleportSection randomTeleport = new ENRandomTeleportSection();
-
-    @Getter
-    @Contextual
-    public static class ENRandomTeleportSection implements RandomTeleportSection {
-        public Notice randomTeleportStarted = Notice.chat("<green>✔ <gray>Teleportation to a random location has started!");
-        public Notice randomTeleportFailed = Notice.chat("<dark_red>✗ <red>A safe location could not be found, please try again!");
-
-
-        @Description({"# {PLAYER} - Player who has been teleported, {WORLD} - World name, {X} - X coordinate, {Y} - Y coordinate, {Z} - Z coordinate"})
-        public Notice teleportedToRandomLocation = Notice.chat("<green>✔ <gray>You have been teleported to a random location!");
-
-        @Description(" ")
-        public Notice teleportedSpecifiedPlayerToRandomLocation = Notice.chat("<green>✔ <yellow>{PLAYER} <gray>has been teleported to a random location! His current location is: world: <yellow>{WORLD}<gray>, x: <yellow>{X}<gray>, y: <yellow>{Y}<gray>, z: <yellow>{Z}.");
-
-        @Description({" ", "# {TIME} - Time to next use (cooldown)"})
-        public Notice randomTeleportDelay = Notice.chat("<dark_red>✗ <red>You need to wait <yellow>{TIME} <red>to use this command again");
-
     }
 
     public ENChatSection chat = new ENChatSection();
@@ -359,25 +315,6 @@ public class ENTranslation extends AbstractTranslation {
         public Notice spawnTeleportedBy = Notice.chat("<green>✔ <gray>You have been teleported to spawn by <yellow>{PLAYER}<gray>!");
         @Description({" ", "# {PLAYER} - Teleported player"})
         public Notice spawnTeleportedOther = Notice.chat("<green>✔ <gray>You have teleported <yellow>{PLAYER} <gray>to spawn!");
-    }
-
-    @Description({" ", "# Information sent, when the language is changed to English"})
-    public ENLanguageSection language = new ENLanguageSection();
-
-    @Getter
-    @Contextual
-    public static class ENLanguageSection implements LanguageSection {
-        public Notice languageChanged = Notice.chat("<green>✔ <gray>Your language has been changed to <yellow>English<gray>!");
-
-        public List<ConfigItem> decorationItems = List.of(
-            ConfigItem.builder()
-                .withMaterial(Material.SUNFLOWER)
-                .withGlow(true)
-                .withSlot(40)
-                .withName("&7Our discord")
-                .withLore(Collections.singletonList("&8» &6https://discord.gg/TRbDApaJaJ"))
-                .build()
-        );
     }
 
     @Description({" ", "# Auto message"})

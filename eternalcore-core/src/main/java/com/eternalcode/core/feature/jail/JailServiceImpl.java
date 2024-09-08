@@ -36,16 +36,9 @@ class JailServiceImpl implements JailService {
     private final ConfigurationManager configurationManager;
 
     @Inject
-    JailServiceImpl(
-        TeleportService teleportService,
-        SpawnService spawnService,
-        JailSettings settings,
-        EventCaller eventCaller,
-        Server server,
-        PrisonerRepository prisonerRepository,
-        LocationsConfiguration locationsConfiguration,
-        ConfigurationManager configurationManager
-    ) {
+    JailServiceImpl(TeleportService teleportService, SpawnService spawnService, JailSettings settings, EventCaller eventCaller, Server server,
+                    PrisonerRepository prisonerRepository, LocationsConfiguration locationsConfiguration,
+                    ConfigurationManager configurationManager) {
         this.teleportService = teleportService;
         this.spawnService = spawnService;
         this.settings = settings;

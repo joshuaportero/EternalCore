@@ -2,19 +2,13 @@ package com.eternalcode.core.config;
 
 import com.eternalcode.core.configuration.ReloadableConfig;
 import com.eternalcode.core.database.DatabaseType;
-import com.eternalcode.core.delay.DelaySettings;
 import com.eternalcode.core.feature.afk.AfkSettings;
 import com.eternalcode.core.feature.automessage.AutoMessageSettings;
 import com.eternalcode.core.feature.chat.ChatSettings;
-import com.eternalcode.core.feature.jail.JailSettings;
-import com.eternalcode.core.feature.randomteleport.RandomTeleportSettings;
-import com.eternalcode.core.feature.randomteleport.RandomTeleportType;
 import com.eternalcode.core.feature.helpop.HelpOpSettings;
+import com.eternalcode.core.feature.jail.JailSettings;
 import com.eternalcode.core.feature.spawn.SpawnSettings;
 import com.eternalcode.core.injector.annotations.component.ConfigurationFile;
-import com.eternalcode.core.feature.teleportrequest.TeleportRequestSettings;
-
-import java.util.Set;
 import net.dzikoysk.cdn.entity.Contextual;
 import net.dzikoysk.cdn.entity.Description;
 import net.dzikoysk.cdn.entity.Exclude;
@@ -24,6 +18,7 @@ import org.bukkit.Sound;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.Set;
 
 @ConfigurationFile
 public class PluginConfiguration implements ReloadableConfig {
@@ -41,10 +36,7 @@ public class PluginConfiguration implements ReloadableConfig {
         "#",
     })
 
-    @Description("# Whether the player should receive information about new plugin updates upon joining the server")
-    public boolean shouldReceivePluginUpdates = true;
-
-    @Description({ " ", "# Database Section" })
+    @Description({" ", "# Database Section"})
     public Database database = new Database();
 
     @Contextual
@@ -63,7 +55,7 @@ public class PluginConfiguration implements ReloadableConfig {
         public int port = 3306;
     }
 
-    @Description({ "", "# Join settings" })
+    @Description({"", "# Join settings"})
     public Join join = new Join();
 
     @Contextual
@@ -77,31 +69,7 @@ public class PluginConfiguration implements ReloadableConfig {
 
     }
 
-    @Description({ " ", "# Teleport request section" })
-    public TeleportAsk teleportAsk = new TeleportAsk();
-
-    @Contextual
-    public static class TeleportAsk implements TeleportRequestSettings {
-        @Description("# Time of tpa requests expire")
-
-        @Description({ " ", "# Time of tpa requests expire" })
-        public Duration tpaRequestExpire = Duration.ofSeconds(80);
-
-        @Description({ " ", "# Time of teleportation time in /tpa commands" })
-        public Duration tpaTimer = Duration.ofSeconds(10);
-
-        @Override
-        public Duration teleportExpire() {
-            return this.tpaRequestExpire;
-        }
-
-        @Override
-        public Duration teleportTime() {
-            return this.tpaTimer;
-        }
-    }
-
-    @Description({ " ", "# Teleport section" })
+    @Description({" ", "# Teleport section"})
     public Teleport teleport = new Teleport();
 
     @Contextual
@@ -124,61 +92,7 @@ public class PluginConfiguration implements ReloadableConfig {
         }
     }
 
-    @Description({ "", "# Random Teleport Section" })
-    public RandomTeleport randomTeleport = new RandomTeleport();
-
-    @Contextual
-    public static class RandomTeleport implements RandomTeleportSettings, DelaySettings {
-        @Description({
-            "# Type of random teleportation,",
-            "# WORLD_BORDER_RADIUS - radius based on the world-border size.",
-            "# STATIC_RADIUS - radius based on the manually value."
-        })
-        public RandomTeleportType randomTeleportType = RandomTeleportType.WORLD_BORDER_RADIUS;
-
-        @Description({
-            "# Radius of random teleportation, this uses for starting point spawn via /setworldspawn.",
-            "# If you want to use a static radius, set the type to STATIC_RADIUS and set the radius here.",
-            "# If you using WORLD_BORDER_RADIUS, this value will be ignored."
-        })
-        public int randomTeleportRadius = 1000;
-
-        @Description("# Teleport to a specific world, if left empty it will teleport to the player's current world")
-        public String randomTeleportWorld = "world";
-
-        @Description("# Number of attempts to teleport to a random location")
-        public int randomTeleportAttempts = 10;
-
-        @Override
-        public int randomTeleportRadius() {
-            return this.randomTeleportRadius;
-        }
-
-        @Override
-        public RandomTeleportType randomTeleportType() {
-            return this.randomTeleportType;
-        }
-
-        @Override
-        public String randomTeleportWorld() {
-            return this.randomTeleportWorld;
-        }
-
-        @Override
-        public int randomTeleportAttempts() {
-            return this.randomTeleportAttempts;
-        }
-
-        @Description("# Delay to request next random teleportation")
-        public Duration randomTeleportDelay = Duration.ofSeconds(60);
-
-        @Override
-        public Duration delay() {
-            return this.randomTeleportDelay;
-        }
-    }
-
-    @Description({ " ", "# Awesome sounds" })
+    @Description({" ", "# Awesome sounds"})
     public Sounds sound = new Sounds();
 
     @Contextual
@@ -189,13 +103,13 @@ public class PluginConfiguration implements ReloadableConfig {
         public float afterJoinVolume = 1.8F;
         public float afterJoinPitch = 1F;
 
-        @Description({ " ", "# Do you want to enable sound after player quit server?" })
+        @Description({" ", "# Do you want to enable sound after player quit server?"})
         public boolean enableAfterQuit = true;
         public Sound afterQuit = Sound.BLOCK_NOTE_BLOCK_BASEDRUM;
         public float afterQuitVolume = 1.8F;
         public float afterQuitPitch = 1F;
 
-        @Description({ " ", "# Do you want to enable sound after player send message on chat server?" })
+        @Description({" ", "# Do you want to enable sound after player send message on chat server?"})
         public boolean enableAfterChatMessage = true;
         public Sound afterChatMessage = Sound.ENTITY_ITEM_PICKUP;
         public float afterChatMessageVolume = 1.8F;
@@ -203,22 +117,22 @@ public class PluginConfiguration implements ReloadableConfig {
 
     }
 
-    @Description({ " ", "# Chat Section" })
+    @Description({" ", "# Chat Section"})
     public Chat chat = new Chat();
 
     @Contextual
     public static class Chat implements ChatSettings {
 
-        @Description({ " ", "# Custom message for unknown command" })
+        @Description({" ", "# Custom message for unknown command"})
         public boolean replaceStandardHelpMessage = false;
 
-        @Description({ " ", "# Chat delay to send next message in chat" })
+        @Description({" ", "# Chat delay to send next message in chat"})
         public Duration chatDelay = Duration.ofSeconds(5);
 
-        @Description({ " ", "# Number of lines that will be cleared when using the /chat clear command" })
+        @Description({" ", "# Number of lines that will be cleared when using the /chat clear command"})
         public int linesToClear = 128;
 
-        @Description({ " ", "# Chat should be enabled?" })
+        @Description({" ", "# Chat should be enabled?"})
         public boolean chatEnabled = true;
 
         @Override
@@ -252,7 +166,7 @@ public class PluginConfiguration implements ReloadableConfig {
 
     }
 
-    @Description({ " ", "# HelpOp Section" })
+    @Description({" ", "# HelpOp Section"})
     public HelpOp helpOp = new HelpOp();
 
     @Contextual
@@ -267,7 +181,7 @@ public class PluginConfiguration implements ReloadableConfig {
         }
     }
 
-    @Description({ " ", "# Additional formatting options" })
+    @Description({" ", "# Additional formatting options"})
     public Format format = new Format();
 
     @Contextual
@@ -275,7 +189,7 @@ public class PluginConfiguration implements ReloadableConfig {
         public String separator = "&7, ";
     }
 
-    @Description({ " ", "# AFK Section" })
+    @Description({" ", "# AFK Section"})
     public Afk afk = new Afk();
 
     @Contextual
@@ -286,7 +200,7 @@ public class PluginConfiguration implements ReloadableConfig {
         })
         public int interactionsCountDisableAfk = 20;
 
-        @Description({ " ", "# Time before using the /afk command again" })
+        @Description({" ", "# Time before using the /afk command again"})
         public Duration afkCommandDelay = Duration.ofSeconds(60);
 
         @Description({
@@ -296,10 +210,10 @@ public class PluginConfiguration implements ReloadableConfig {
         })
         public boolean autoAfk = true;
 
-        @Description({ " ", "# The amount of time a player must be inactive to be marked as AFK" })
+        @Description({" ", "# The amount of time a player must be inactive to be marked as AFK"})
         public Duration afkInactivityTime = Duration.ofMinutes(10);
 
-        @Description({ " ", "# Should a player be kicked from the game when marked as AFK?" })
+        @Description({" ", "# Should a player be kicked from the game when marked as AFK?"})
         public boolean kickOnAfk = false;
 
         @Override
@@ -323,7 +237,7 @@ public class PluginConfiguration implements ReloadableConfig {
         }
     }
 
-    @Description({ " ", "# AutoMessage Section" })
+    @Description({" ", "# AutoMessage Section"})
     public AutoMessage autoMessage = new AutoMessage();
 
     @Contextual
@@ -356,7 +270,7 @@ public class PluginConfiguration implements ReloadableConfig {
         }
     }
 
-    @Description({ " ", "# Jail Section" })
+    @Description({" ", "# Jail Section"})
     public Jail jail = new Jail();
 
     @Contextual

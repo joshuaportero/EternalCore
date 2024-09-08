@@ -1,6 +1,5 @@
 package com.eternalcode.core.translation;
 
-import com.eternalcode.core.configuration.contextual.ConfigItem;
 import com.eternalcode.core.feature.language.Language;
 import com.eternalcode.multification.notice.Notice;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -36,15 +35,6 @@ public interface Translation {
         Notice noEnchantment();
 
         Notice invalidTimeFormat();
-    }
-
-    // format section
-    Format format();
-
-    interface Format {
-        String enable();
-
-        String disable();
     }
 
     // HelpOp Section
@@ -96,21 +86,6 @@ public interface Translation {
         Notice randomPlayerNotFound();
 
         Notice teleportedToRandomPlayer();
-    }
-
-    // Random Teleport Section
-    RandomTeleportSection randomTeleport();
-
-    interface RandomTeleportSection {
-        Notice randomTeleportStarted();
-
-        Notice randomTeleportFailed();
-
-        Notice teleportedToRandomLocation();
-
-        Notice teleportedSpecifiedPlayerToRandomLocation();
-
-        Notice randomTeleportDelay();
     }
 
     // Chat Section
@@ -220,15 +195,6 @@ public interface Translation {
         Notice spawnTeleportedBy();
 
         Notice spawnTeleportedOther();
-    }
-
-    // language section
-    LanguageSection language();
-
-    interface LanguageSection {
-        Notice languageChanged();
-
-        List<ConfigItem> decorationItems();
     }
 
     AutoMessageSection autoMessage();
